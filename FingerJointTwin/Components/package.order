@@ -1,9 +1,9 @@
-JointSpring
-JointLimits
-JointDamper
-GravityTorque
-FlexorTendon
 FingerSegment
-ExternalLoad
+FlexorTendon
 ExtensorTendon
+JointSpring
+JointDamper
+JointLimits
+GravityTorque
+ExternalLoad
 ContactLoad
