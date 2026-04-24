@@ -1,0 +1,43 @@
+# OpenModelica simulation outputs
+*.mat
+*_res.mat
+*.csv
+*.xml
+*.log
+*.c
+*.h
+*.o
+*.so
+*.dll
+*.exe
+*_info.json
+simulation/
+output/
+
+# OpenModelica build artifacts
+*.makefile
+Makefile
+*.libs
+*.opts
+
+# Windows OS files
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Backup files
+*.bak
+*.bak-mo
+*.orig
