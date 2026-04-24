@@ -2,14 +2,30 @@
 
 A physics-based digital twin of a tendon-driven finger joint, developed for the **Digital Twin Engineering** course at **Karlsruhe Institute of Technology (KIT)**, WS 2025/26.
 
-## Overview
+## Motivation
 
-This library models a single finger joint with antagonistic tendon actuation (flexor and extensor), passive joint properties, anatomical limits, gravity, external loads, and object contact. It is implemented in **Modelica** and tested with **OpenModelica**.
+Understanding and replicating the mechanics of a human finger has applications across **prosthetics**, **surgical robotics**, **rehabilitation engineering**, and **industrial grippers**. This project builds a modular digital twin in Modelica that captures the key biomechanical phenomena — tendon actuation, passive tissue stiffness, anatomical limits, gravity, and object contact — all within a single reusable library.
 
-The same model structure is used to represent three different finger types by changing parameters:
-- Human finger
-- Prosthetic finger
-- Robotic finger
+The same model structure, with only parameter changes, represents a human finger, a prosthetic device, and a robotic gripper — demonstrating the power of physics-based digital twins for cross-domain design.
+
+## Simulation Results
+
+### Joint Angle — All 5 Cases
+![Joint Angle](docs/images/joint_angle_all.png)
+
+### Case 1 — Free Motion: Torque Breakdown
+![Torque Breakdown](docs/images/case1_torque_breakdown.png)
+
+### Case 2 vs Case 3 — Soft vs Hard Object
+![Case 2 vs Case 3](docs/images/case2_vs_case3.png)
+The hard object (k=10) produces higher contact forces and restricts joint motion earlier than the soft object (k=2).
+
+### Human vs Prosthetic vs Robotic Finger
+![Human vs Prosthetic vs Robotic](docs/images/human_vs_prosthetic_vs_robotic.png)
+The robotic finger reaches contact ~5× faster and generates up to 10× higher grip forces than the human configuration.
+
+### Contact Force — Cases 2–5
+![Contact Force](docs/images/contact_force_all.png)
 
 ## Library Structure
 
@@ -30,11 +46,11 @@ The same model structure is used to represent three different finger types by ch
 | Case 2 | Human finger grasping a **soft** object (kContact = 2 Nm/rad) |
 | Case 3 | Human finger grasping a **hard** object (kContact = 10 Nm/rad) |
 | Case 4 | **Prosthetic** finger — higher inertia, stiffness, and damping |
-| Case 5 | **Robotic** finger — fast actuation, high grip force (30–35 N) |
+| Case 5 | **Robotic** finger — fast actuation, high grip force (~25 N) |
 
 ## Physics Model
 
-Each component contributes a torque to the shared rotational joint node:
+Each component contributes a torque to the shared rotational joint node (Kirchhoff torque summation):
 
 | Component | Equation |
 |---|---|
@@ -46,7 +62,7 @@ Each component contributes a torque to the shared rotational joint node:
 | Gravity Torque | `τ = −m·g·r·sin(φ)` |
 | Contact Load | `τ = −(k·pen + d·ṗen)` via `smoothMax` |
 
-Contact force is estimated as: `F_contact = |τ_contact| / L` where L = 0.05 m.
+Contact force is estimated as `F_contact = |τ_contact| / L` where L = 0.05 m (fingertip lever arm).
 
 ## How to Run
 
