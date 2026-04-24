@@ -7,6 +7,10 @@ model FingerSegment
   FingerJointTwin.Interfaces.RotationalPort joint annotation(
     Placement(transformation(origin={100,0}, extent={{-10,-10},{10,10}})));
 
+initial equation
+  joint.phi = 0;
+  w = 0;
+
 equation
   der(joint.phi) = w;
   J*der(w) = joint.tau;

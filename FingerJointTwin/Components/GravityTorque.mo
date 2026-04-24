@@ -1,7 +1,7 @@
 within FingerJointTwin.Components;
 
 model GravityTorque
-  parameter Real m = 0.1  "Finger segment mass [kg]";
+  parameter Real m = 0.015 "Finger segment mass [kg]";
   parameter Real r = 0.05 "COM distance from joint [m]";
   parameter Real g = 9.81 "Gravity [m/s^2]";
   parameter Real phiRef = 0 "Reference angle [rad]";
