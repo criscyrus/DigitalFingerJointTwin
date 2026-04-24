@@ -1,6 +1,0 @@
-within FingerJointTwin.UsersGuide;
-
-model Contact
-equation
-
-end Contact;
