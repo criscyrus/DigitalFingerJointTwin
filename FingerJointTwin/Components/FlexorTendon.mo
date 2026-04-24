@@ -2,7 +2,9 @@ within FingerJointTwin.Components;
 
 model FlexorTendon
   parameter Real tauMax = 0.2 "Max flexor torque [Nm]";
-  input Real u "Activation 0..1";
+
+  Modelica.Blocks.Interfaces.RealInput u "Activation signal [0..1]" annotation(
+    Placement(transformation(origin={0,100}, extent={{-20,-20},{20,20}}, rotation=270)));
 
   FingerJointTwin.Interfaces.RotationalPort joint annotation(
     Placement(transformation(origin={-100,0}, extent={{-10,-10},{10,10}})));

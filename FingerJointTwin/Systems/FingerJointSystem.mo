@@ -40,7 +40,8 @@ model FingerJointSystem
     Placement(transformation(extent={{-120,-70},{-80,-30}})));
 
 // Contact force estimation
-  parameter Real L = 0.05 "Joint-to-contact distance [m]";
+  parameter Real L = 0.05
+    "Fingertip lever arm: distance from joint center to contact point [m]. Set to segment length for fingertip contact. Human PIP: ~0.03 m; proximal segment: ~0.05 m; robotic finger: ~0.04-0.08 m.";
   Real F_contact "Estimated contact force at fingertip [N]";
   Real F_contact_abs "Magnitude of contact force [N]";
 
@@ -69,9 +70,8 @@ equation
 
   connect(segment.joint, contact.joint) annotation(
     Line(points = {{0, 0}, {79, 0}}, color = {0, 0, 127}));
-//  Inputs to tendons (now coming from ports)
-  flexor.u   = uFlex;
-  extensor.u = uExt;
+  connect(uFlex, flexor.u);
+  connect(uExt, extensor.u);
 // Convert contact torque -> force
   F_contact     = contact.joint.tau / L;
   F_contact_abs = abs(F_contact);

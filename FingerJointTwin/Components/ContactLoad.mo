@@ -89,7 +89,9 @@ annotation(
   Documentation(info="
 <html><body>
 <h4>ContactLoad</h4>
-<p>Compliant contact model for finger-object interaction. Implements a Hunt-Crossley contact formulation with smooth penetration-based activation. Enables grasping simulation and contact force estimation.</p>
+<p>Compliant contact model for finger-object interaction. Implements a linear Kelvin-Voigt spring-damper formulation with smooth penetration-based activation. Enables grasping simulation and contact force estimation.</p>
+
+<p><b>Note on contact model:</b> This model uses a linear spring-damper (Kelvin-Voigt): <code>τ = −(k·pen + d·ṗen)</code>. This differs from the nonlinear Hunt-Crossley model (<code>F = k·δⁿ + c·δⁿ·δ̇</code>, n ≈ 1.5), which better captures real impact dynamics but requires additional parameters. The linear model is sufficient for quasi-static grasping simulation.</p>
 
 <p><b>Equations:</b></p>
 <ul>

@@ -1,7 +1,8 @@
 within FingerJointTwin.Sources;
 
 model RobotActivation "Fast controlled activation for robotic fingers"
-  extends Modelica.Blocks.Interfaces.SO;
+  Modelica.Blocks.Interfaces.RealOutput y "Activation signal [0..1]" annotation(
+    Placement(transformation(extent={{100,-10},{120,10}})));
 
   parameter Real amplitude = 1.0 "Maximum activation level";
   parameter Real rampTime  = 0.1 "Ramp time [s] — 5x faster than human";
