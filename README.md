@@ -51,7 +51,7 @@ Contact force is estimated as: `F_contact = |τ_contact| / L` where L = 0.05 m.
 ## How to Run
 
 1. Open **OpenModelica** (OMEdit)
-2. Load `FingerJointTwin/package.mo` (File → Load Model)
+2. Load `FingerJointTwin/package.mo` from the repo root (File → Load Model)
 3. Navigate to `FingerJointTwin.Examples`
 4. Start with `Case1_FreeMotion`, simulate for 10 seconds
 5. Plot `sys.segment.joint.phi` and `sys.F_contact_abs`
