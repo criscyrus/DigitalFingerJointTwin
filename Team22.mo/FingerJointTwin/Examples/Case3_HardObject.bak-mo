@@ -1,0 +1,20 @@
+within FingerJointTwin.Examples;
+model Case3_HardObject
+  extends Modelica.Icons.Example;
+  FingerJointTwin.Systems.FingerJointSystem_v2 sys(contact(phiContact=-0.3, kContact=10, dContact=0.5), load(tauLoad=0.2));
+  annotation(
+    experiment(StartTime=0, StopTime=10, Interval=0.01),
+    Documentation(info="
+<h4>Case3_HardObject</h4>
+<p>Grasping a hard object (high stiffness).</p>
+<h4>Simulation Setup</h4>
+<ul><li>StopTime: 10 s</li><li>Interval: 0.01 s</li></ul>
+<h4>Plotting</h4>
+<ul>
+<li><b>sys.segment.joint.phi</b> (angle)</li>
+<li><b>sys.contact.joint.tau</b> (contact torque)</li>
+<li><b>sys.F_contact_abs</b> (grasp force)</li>
+</ul>
+")
+  );
+end Case3_HardObject;

@@ -1,0 +1,208 @@
+within FingerJointTwin.Systems;
+
+model FingerJointSystem_v2
+  // Core dynamics (center)
+  FingerJointTwin.Components.FingerSegment segment annotation(
+    Placement(transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}})));
+
+  // Passive joint properties (left + top)
+  FingerJointTwin.Components.JointSpring spring annotation(
+    Placement(transformation(origin = {5, -2}, extent = {{-77, 22}, {-55, 44}})));
+
+  FingerJointTwin.Components.JointDamper damper annotation(
+    Placement(transformation(origin = {6, -4}, extent = {{-70, -20}, {-50, 0}})));
+
+  FingerJointTwin.Components.JointLimits limits annotation(
+    Placement(transformation(origin = {15, -10}, extent = {{-15, 60}, {15, 90}})));
+
+  // Active tendons (right)
+  FingerJointTwin.Components.FlexorTendon flexor annotation(
+    Placement(transformation(origin = {-3, -2}, extent = {{55, 22}, {77, 44}})));
+
+  FingerJointTwin.Components.ExtensorTendon extensor annotation(
+    Placement(transformation(origin = {0, -4}, extent = {{50, -20}, {70, 0}})));
+
+  // Environment interaction (bottom + far right)
+  FingerJointTwin.Components.ExternalLoad load annotation(
+    Placement(transformation(origin = {20, 8}, extent = {{-10, -60}, {10, -40}})));
+
+  FingerJointTwin.Components.GravityTorque gravity annotation(
+    Placement(transformation(origin = {10, 6}, extent = {{-10, -90}, {10, -70}})));
+
+  FingerJointTwin.Components.ContactLoad contact annotation(
+    Placement(transformation(origin = {-16, 0}, extent = {{95, -10}, {115, 10}})));
+
+  //  Inputs as ports (from Sources/Examples)
+  Modelica.Blocks.Interfaces.RealInput uFlex annotation(
+    Placement(transformation(extent={{-120, 30},{-80, 70}})));
+
+  Modelica.Blocks.Interfaces.RealInput uExt annotation(
+    Placement(transformation(extent={{-120,-70},{-80,-30}})));
+
+  // Contact force estimation
+  parameter Real L = 0.05 "Joint-to-contact distance [m]";
+  Real F_contact "Estimated contact force at fingertip [N]";
+  Real F_contact_abs "Magnitude of contact force [N]";
+
+equation
+  // Joint node connections (with visible wiring)
+  connect(segment.joint, spring.joint) annotation(
+    Line(points = {{0, 0}, {0, 31}, {-72, 31}}, color = {0, 0, 127}));
+
+  connect(segment.joint, damper.joint) annotation(
+    Line(points = {{0, 0}, {0, -14}, {-64, -14}}, color = {0, 0, 127}));
+
+  connect(segment.joint, limits.joint) annotation(
+    Line(points = {{0, 0}, {0, 65}}, color = {0, 0, 127}));
+
+  connect(segment.joint, load.joint) annotation(
+    Line(points = {{0, 0}, {0, -23}, {10, -23}, {10, -42}}, color = {0, 0, 127}));
+
+  connect(segment.joint, gravity.joint) annotation(
+    Line(points = {{0, 0}, {0, -74}}, color = {0, 0, 127}));
+
+  connect(segment.joint, flexor.joint) annotation(
+    Line(points = {{0, 0}, {0, 31}, {52, 31}}, color = {0, 0, 127}));
+
+  connect(segment.joint, extensor.joint) annotation(
+    Line(points = {{0, 0}, {0, -14}, {50, -14}}, color = {0, 0, 127}));
+
+  connect(segment.joint, contact.joint) annotation(
+    Line(points = {{0, 0}, {79, 0}}, color = {0, 0, 127}));
+
+  //  Inputs to tendons (now coming from ports)
+  flexor.u   = uFlex;
+  extensor.u = uExt;
+
+  // Convert contact torque -> force
+  F_contact     = contact.joint.tau / L;
+  F_contact_abs = abs(F_contact);
+
+annotation(
+  Icon(graphics={
+    // Main background
+    Rectangle(extent={{-100,100},{100,-100}}, 
+      lineColor={0,0,0}, 
+      fillColor={255,255,255}, 
+      fillPattern=FillPattern.Solid,
+      lineThickness=2),
+    
+    // Title bar
+    Rectangle(extent={{-100,100},{100,75}}, 
+      lineColor={28,108,200},
+      fillColor={28,108,200},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{-95,100},{95,75}}, 
+      textString="Finger Joint System", 
+      textColor={255,255,255},
+      textStyle={TextStyle.Bold}),
+    
+    // Central joint representation
+    Ellipse(extent={{-30,30},{30,-30}}, 
+      lineColor={100,100,100},
+      fillColor={220,220,220},
+      fillPattern=FillPattern.Solid),
+    Ellipse(extent={{-20,20},{20,-20}}, 
+      lineColor={28,108,200},
+      fillColor={200,220,255},
+      fillPattern=FillPattern.Solid,
+      lineThickness=2),
+    
+    // Component indicators around the joint
+    // Flexor (top-left, red)
+    Ellipse(extent={{-70,65},{-50,45}}, 
+      lineColor={180,0,0},
+      fillColor={255,200,200},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{-70,65},{-50,45}}, 
+      textString="F", 
+      textColor={180,0,0},
+      textStyle={TextStyle.Bold}),
+    
+    // Extensor (bottom-left, blue)
+    Ellipse(extent={{-70,-45},{-50,-65}}, 
+      lineColor={0,70,180},
+      fillColor={200,220,255},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{-70,-45},{-50,-65}}, 
+      textString="E", 
+      textColor={0,70,180},
+      textStyle={TextStyle.Bold}),
+    
+    // Spring (top-right, green)
+    Ellipse(extent={{50,65},{70,45}}, 
+      lineColor={0,140,0},
+      fillColor={220,255,220},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{50,65},{70,45}}, 
+      textString="K", 
+      textColor={0,140,0},
+      textStyle={TextStyle.Bold}),
+    
+    // Damper (bottom-right, orange)
+    Ellipse(extent={{50,-45},{70,-65}}, 
+      lineColor={200,100,0},
+      fillColor={255,240,220},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{50,-45},{70,-65}}, 
+      textString="D", 
+      textColor={200,100,0},
+      textStyle={TextStyle.Bold}),
+    
+    // Connection lines to center
+    Line(points={{-60,55},{-20,10}}, color={100,100,100}, pattern=LinePattern.Dot),
+    Line(points={{-60,-55},{-10,-15}}, color={100,100,100}, pattern=LinePattern.Dot),
+    Line(points={{60,55},{20,10}}, color={100,100,100}, pattern=LinePattern.Dot),
+    Line(points={{60,-55},{15,-15}}, color={100,100,100}, pattern=LinePattern.Dot),
+    
+    // Input ports representation
+    Rectangle(extent={{-100,20},{-90,10}}, 
+      lineColor={180,0,0},
+      fillColor={255,200,200},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{-90,25},{-70,5}}, 
+      textString="uF", 
+      textColor={180,0,0}),
+    
+    Rectangle(extent={{-100,-10},{-90,-20}}, 
+      lineColor={0,70,180},
+      fillColor={200,220,255},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{-90,-5},{-70,-25}}, 
+      textString="uE", 
+      textColor={0,70,180}),
+    
+    // Contact/gravity/load indicators (smaller)
+    Ellipse(extent={{-5,-55},{5,-65}}, 
+      lineColor={100,100,100},
+      fillColor={200,200,200},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{8,-70},{35,-50}}, 
+      textString="G,L,C", 
+      textColor={100,100,100}),
+    
+    // Version indicator
+    Text(extent={{-100,-75},{100,-95}}, 
+      textString="v2 - Digital Twin", 
+      textColor={100,100,100})
+  }),
+  Diagram,
+  Documentation(info = "
+<html><body>
+<h4>FingerJointSystem</h4>
+<p>System-level composition of the finger joint digital twin. All components connect to the same rotational joint node.</p>
+<p><b>Inputs:</b> uFlex and uExt are external activation signals (0..1) provided by models in <code>FingerJointTwin.Sources</code></p>
+<ul>
+<li><b>FingerSegment</b>: inertia dynamics</li>
+<li><b>Spring/Damper</b>: passive tissue behavior</li>
+<li><b>Limits</b>: anatomical joint stops</li>
+<li><b>Flexor/Extensor</b>: antagonistic actuation torques</li>
+<li><b>ExternalLoad</b>: disturbance torque</li>
+<li><b>GravityTorque</b>: nonlinear gravity effect</li>
+<li><b>ContactLoad</b>: interaction torque with object</li>
+</ul>
+<p>Grasp/contact force estimate: <code>F_contact = tau_contact / L</code>.</p>
+</body></html>
+"),
+  Diagram);
+end FingerJointSystem_v2;

@@ -1,0 +1,5 @@
+within FingerJointTwin;
+package Icons "Icons package"
+  extends Modelica.Icons.IconsPackage;
+
+end Icons;
