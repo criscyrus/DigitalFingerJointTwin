@@ -42,7 +42,7 @@ annotation(
   Documentation(info="
 <html><body>
 <h4>HumanActivation</h4>
-<p>Muscle-like smooth activation using a trapezoid waveform (rise 0.3 s, hold 1.2 s, fall 0.3 s, period 3 s).</p>
-<p><b>Use:</b> connect <code>y</code> to <code>sys.uFlex</code> or <code>sys.uExt</code>.</p>
+<p>Smooth trapezoid activation representing a voluntary finger movement cycle (rise 0.3 s, hold 1.2 s, fall 0.3 s, period 3 s). The ramp duration (0.3 s) models the speed of a deliberate voluntary movement — not the physiological muscle fiber activation time constant (~10–65 ms), which operates at a much faster timescale.</p>
+<p><b>Use:</b> connect <code>y</code> to <code>sys.uFlex</code> or <code>sys.uExt</code>. Adjust <code>rising</code>, <code>width</code>, and <code>period</code> to match your subject's measured movement speed.</p>
 </body></html>"));
 end HumanActivation;

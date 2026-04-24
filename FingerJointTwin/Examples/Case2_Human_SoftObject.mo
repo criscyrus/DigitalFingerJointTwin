@@ -5,7 +5,8 @@ model Case2_Human_SoftObject
 
   FingerJointTwin.Systems.FingerJointSystem sys(
     contact(phiContact=-0.3, kContact=2, dContact=0.5),
-    load(tauLoad=0.2)
+    load(tauLoad=0.2),
+    L=0.04
   ) annotation(
     Placement(transformation(origin={-10,-2}, extent={{-40,-40},{40,40}})));
 

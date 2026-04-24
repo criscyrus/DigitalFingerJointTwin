@@ -10,7 +10,8 @@ model Case4_ProstheticFinger
     flexor(tauMax=0.25),
     extensor(tauMax=0.25),
     load(tauLoad=0.2),
-    contact(phiContact=-0.3, kContact=10, dContact=0.5)
+    contact(phiContact=-0.3, kContact=10, dContact=0.5),
+    L=0.045
   ) annotation(
     Placement(transformation(origin={-10,-2}, extent={{-40,-40},{40,40}})));
 

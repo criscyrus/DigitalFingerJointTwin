@@ -84,12 +84,14 @@ annotation(
   <li><code>joint.tau</code> [Nm]: Net torque from all connected components</li>
 </ul>
 
-<p><b>Typical Values:</b></p>
+<p><b>Representative Starting Values (calibrate to your application):</b></p>
 <ul>
-  <li>Human finger: J ≈ 0.01-0.03 kg·m²</li>
+  <li>Human finger: J ≈ 0.01-0.03 kg·m² (behaviorally tuned for ~1 Hz voluntary movement bandwidth)</li>
   <li>Prosthetic finger: J ≈ 0.03-0.05 kg·m²</li>
   <li>Robotic finger: J ≈ 0.05-0.10 kg·m²</li>
 </ul>
+
+<p><b>Calibration note:</b> As a digital twin, J should be replaced with measured or computed values for your specific application (cadaver measurements, CAD geometry, or system identification from motion capture). The default is a representative starting point that produces realistic task-level dynamics.</p>
 </body></html>
 "));
 end FingerSegment;

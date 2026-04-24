@@ -50,7 +50,7 @@ annotation(
   Documentation(info="
 <html><body>
 <h4>ProstheticActivation</h4>
-<p>Slower (rise 0.6 s) and lower amplitude (0.6) activation representing a safe prosthetic actuation profile.</p>
-<p><b>Use:</b> connect <code>y</code> to <code>sys.uFlex</code> or <code>sys.uExt</code>.</p>
+<p>Conservative trapezoid activation for myoelectric prosthetic devices (rise 0.6 s, hold 1.5 s, fall 0.6 s, amplitude 0.6, period 4 s). The slower ramp (0.6 s vs 0.3 s for human) represents the deliberate, safe movement speed typical of prosthetic control. The reduced amplitude (0.6) models power-limited actuation — myoelectric prosthetics commonly apply current limiting to protect actuators, which caps the effective torque below the hardware maximum.</p>
+<p><b>Use:</b> connect <code>y</code> to <code>sys.uFlex</code> or <code>sys.uExt</code>. Adjust amplitude and ramp to match your device's motor controller settings.</p>
 </body></html>"));
 end ProstheticActivation;

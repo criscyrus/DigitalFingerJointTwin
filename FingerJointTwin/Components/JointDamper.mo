@@ -98,12 +98,14 @@ annotation(
   <li>Always removes energy from system (stabilizing effect)</li>
 </ul>
 
-<p><b>Typical Values:</b></p>
+<p><b>Representative Starting Values (calibrate to your application):</b></p>
 <ul>
   <li>Human finger: d ≈ 0.1-0.5 Nm·s/rad</li>
-  <li>Prosthetic finger: d ≈ 0.15-0.30 Nm·s/rad (bearing friction)</li>
-  <li>Robotic finger: d ≈ 0.05-0.20 Nm·s/rad (can be very low with good bearings)</li>
+  <li>Prosthetic finger: d ≈ 0.15-0.30 Nm·s/rad (bearing friction and joint compliance)</li>
+  <li>Robotic finger: d ≈ 0.05-0.20 Nm·s/rad (low with precision bearings)</li>
 </ul>
+
+<p><b>Calibration note:</b> As a digital twin, d should be identified from step-response or impulse experiments on the real system. It is the parameter most subject to change across individuals and operating conditions.</p>
 </body></html>
 "));
 end JointDamper;

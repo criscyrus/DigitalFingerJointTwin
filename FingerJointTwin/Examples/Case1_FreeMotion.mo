@@ -5,7 +5,8 @@ model Case1_FreeMotion
 
   FingerJointTwin.Systems.FingerJointSystem sys(
     contact(phiContact = -10),   // contact never triggers
-    load(tauLoad = 0)            // no external load
+    load(tauLoad = 0),           // no external load
+    L=0.04
   ) annotation(
     Placement(transformation(origin={-10,-2}, extent={{-40,-40},{40,40}})));
 

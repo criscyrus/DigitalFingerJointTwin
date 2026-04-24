@@ -82,12 +82,14 @@ annotation(
   <li>φ₀ typically near 0 rad (slightly flexed neutral posture)</li>
 </ul>
 
-<p><b>Typical Values:</b></p>
+<p><b>Representative Starting Values (calibrate to your application):</b></p>
 <ul>
-  <li>Human finger: k ≈ 0.5-2.0 Nm/rad, φ₀ ≈ -0.1 to 0 rad</li>
-  <li>Prosthetic finger: k ≈ 2.0-5.0 Nm/rad (stiffer bearings/joints)</li>
-  <li>Robotic finger: k ≈ 1.0-3.0 Nm/rad</li>
+  <li>Human finger: k ≈ 0.5-2.0 Nm/rad (tuned for realistic task-level dynamics; published passive stiffness of healthy IP joints is 0.05–0.15 Nm/rad)</li>
+  <li>Prosthetic finger: k ≈ 2.0-5.0 Nm/rad (stiffer mechanical joints)</li>
+  <li>Robotic finger: k ≈ 3.0-6.0 Nm/rad (rigid linkages, or lower for compliant/SEA designs)</li>
 </ul>
+
+<p><b>Calibration note:</b> As a digital twin, k should be identified from measurements (joint stiffness testing, system identification) for your specific subject or device. The default is a representative starting point that produces realistic behavioral dynamics.</p>
 </body></html>
 "));
 end JointSpring;

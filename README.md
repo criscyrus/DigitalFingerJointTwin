@@ -21,7 +21,7 @@ The same model structure, with only parameter changes, represents a human finger
 | `Functions` | `smoothMax` — differentiable approximation of max(0, x) for contact and limits |
 | `Sources` | Activation signal generators: human (0.5 s ramp), prosthetic (0.3 s ramp), robot (0.1 s ramp), zero |
 | `Systems` | `FingerJointSystem` — complete system connecting all components to a shared joint node |
-| `Examples` | Five simulation cases (see below) |
+| `Examples` | Six simulation cases (see below) |
 | `UsersGuide` | Documentation, references, and contact |
 
 ## Physics Model
@@ -55,13 +55,16 @@ The same `FingerJointSystem` model represents three finger types by changing onl
 | Parameter | Human (Cases 1–3) | Prosthetic (Case 4) | Robotic (Case 5) | Units |
 |---|---|---|---|---|
 | Segment inertia J | 0.02 | 0.03 | 0.05 | kg·m² |
-| Joint stiffness k | 1.0 | 3.0 | 2.0 | Nm/rad |
+| Joint stiffness k | 1.0 | 3.0 | 4.0 | Nm/rad |
 | Joint damping d | 0.3 | 0.20 | 0.10 | Nms/rad |
 | Flexor τmax | 0.20 | 0.25 | 0.60 | Nm |
 | Extensor τmax | 0.20 | 0.25 | 0.60 | Nm |
 | Object stiffness kContact | 2 (soft) / 10 (hard) | 10 | 20 | Nm/rad |
+| Lever arm L | 0.04 | 0.045 | 0.06 | m |
 
-The prosthetic has higher stiffness and damping (mechanical joint friction); the robotic finger has the largest inertia but lower passive damping, combined with 3× the tendon torque capacity.
+The prosthetic has higher stiffness and damping (mechanical joint friction). The robotic finger has the highest stiffness (rigid linkage), largest inertia, and 3× the tendon torque capacity, with lower passive damping due to precision bearings.
+
+> **Digital twin note:** All parameters are user-configurable and should be calibrated to your specific subject or device. The values above are representative starting points that produce realistic behavioral dynamics. Replace with measured values (motion capture, system identification, hardware specs) for your application.
 
 ## Simulation Cases
 
@@ -70,8 +73,9 @@ The prosthetic has higher stiffness and damping (mechanical joint friction); the
 | Case 1 | Human — free motion, no contact | Baseline dynamics: flexor drives joint to −0.87 rad (−50°), passive spring/damper damp the transient. No contact torque. |
 | Case 2 | Human — soft object (k=2 Nm/rad) | Contact builds gradually; finger slightly overshoots threshold then settles. Low peak grip force (~3–4 N). |
 | Case 3 | Human — hard object (k=10 Nm/rad) | Contact triggers earlier and with sharper force rise. Higher peak grip force (~18 N); finger motion arrested rapidly. |
-| Case 4 | Prosthetic — hard object | Slower response (higher inertia + damping); smoother transient; settles with less oscillation than human. |
-| Case 5 | Robotic — very hard object (k=20 Nm/rad) | Reaches contact 5× faster than human; sustained grip force ~23 N; rapid stable settling with no elastic bounce. |
+| Case 4 | Prosthetic — hard object | Slower, power-limited actuation (0.6 amplitude, 0.6 s ramp); smoother transient; settles with less oscillation than human. |
+| Case 5 | Robotic — very hard object (k=20 Nm/rad) | Fastest response (0.1 s ramp); highest stiffness (k=4.0); sustained grip force; rapid stable settling. |
+| Case 6 | Human — bidirectional (flex then extend) | Full open/close cycle: flexor closes the finger, then extensor actively returns it to rest. Demonstrates antagonistic control. |
 
 ## Simulation Results
 
@@ -116,6 +120,7 @@ This is a first-order approximation. The following are intentionally not modelle
 - **Planar motion only** — out-of-plane (abduction/adduction) DOF are not modelled
 - **No skin or fingertip deformation** — contact is modelled as a rigid-body interaction at a fixed threshold angle
 - **No experimental validation** — parameter values are based on published ranges; the model has not been fitted to subject-specific measurements
+- **Parameters are representative starting points** — as a digital twin, all parameters (J, k, d, tauMax, etc.) are designed to be replaced with measured or identified values for your specific subject, prosthetic device, or robotic system
 
 ## References
 

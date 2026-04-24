@@ -5,12 +5,13 @@ model Case5_RoboticFinger
 
   FingerJointTwin.Systems.FingerJointSystem sys(
     segment(J=0.05),
-    spring(k=2.0),
+    spring(k=4.0),
     damper(d=0.10),
     flexor(tauMax=0.6),
     extensor(tauMax=0.6),
     load(tauLoad=0.2),
-    contact(phiContact=-0.3, kContact=20, dContact=1.0)
+    contact(phiContact=-0.3, kContact=20, dContact=1.0),
+    L=0.06
   ) annotation(
     Placement(transformation(origin={-10,-2}, extent={{-40,-40},{40,40}})));
 
