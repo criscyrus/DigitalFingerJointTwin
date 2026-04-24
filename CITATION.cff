@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: DigitalFingerJointTwin
+message: "If you use this library in your research, please cite it as below."
+type: software
+authors:
+  - family-names: Cyrus
+    given-names: Cris
+    affiliation: Karlsruhe Institute of Technology (KIT)
+  - family-names: Sunilkumar
+    given-names: Athul
+    affiliation: Karlsruhe Institute of Technology (KIT)
+  - family-names: Sucil Dhas
+    given-names: Bergin
+    affiliation: Karlsruhe Institute of Technology (KIT)
+repository-code: https://github.com/criscyrus/DigitalFingerJointTwin
+abstract: >
+  A physics-based digital twin library for a tendon-driven finger joint,
+  implemented in Modelica. Models antagonistic flexor/extensor tendon actuation,
+  passive joint properties, anatomical limits, gravity, external loads, and
+  compliant object contact. Includes five simulation cases covering human,
+  prosthetic, and robotic finger configurations.
+keywords:
+  - modelica
+  - digital-twin
+  - biomechanics
+  - finger-joint
+  - robotics
+  - prosthetics
+  - openmodelica
+license: MIT
+version: 1.0.0
+date-released: "2026-04-24"

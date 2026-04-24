@@ -64,9 +64,29 @@ and robotic finger configurations.
 
 <h3>Getting Started</h3>
 <p>
-Start with <code>FingerJointTwin.Examples.Case1_FreeMotion</code> to understand the basic dynamics, 
+Start with <code>FingerJointTwin.Examples.Case1_FreeMotion</code> to understand the basic dynamics,
 then explore the other cases to see contact behavior and different finger configurations.
 </p>
+
+<h3>Model Limitations</h3>
+<p>This library is a first-order approximation. The following phenomena are intentionally not modelled:</p>
+<ul>
+  <li><b>Single DOF only</b> — each instance models one joint; multi-joint coupling (MCP, PIP, DIP) requires separate instances with no kinematic constraints between them.</li>
+  <li><b>Massless, inextensible tendons</b> — tendon compliance and mass are neglected; force transmission is instantaneous.</li>
+  <li><b>No muscle activation dynamics</b> — the Hill muscle model (force-velocity, force-length relationships) is not included; activation u maps linearly to torque.</li>
+  <li><b>Linear passive properties</b> — joint stiffness and damping are constant; real biological tissue is nonlinear and viscoelastic.</li>
+  <li><b>Planar motion only</b> — out-of-plane (abduction/adduction) degrees of freedom are not modelled.</li>
+  <li><b>No skin or fingertip deformation</b> — contact is modelled as a rigid-body interaction at a fixed threshold angle.</li>
+  <li><b>No validation against experimental data</b> — parameter values are based on published ranges; the model has not been fitted to subject-specific measurements.</li>
+</ul>
+
+<h3>References</h3>
+<ol>
+  <li>An, K.-N., Ueba, Y., Chao, E. Y., Cooney, W. P., &amp; Linscheid, R. L. (1983). <i>Tendon excursion and moment arm of index finger muscles.</i> Journal of Biomechanics, 16(6), 419–425.</li>
+  <li>Hogan, N. (1985). <i>Impedance control: An approach to manipulation.</i> ASME Journal of Dynamic Systems, Measurement, and Control, 107(1), 1–24.</li>
+  <li>Deshpande, A. D., Xu, Z., Weghe, M. J. V., Brown, B. H., Ko, J., Chang, L. Y., &amp; Matsuoka, Y. (2013). <i>Mechanisms of the anatomically correct testbed hand.</i> IEEE/ASME Transactions on Mechatronics, 18(1), 238–250.</li>
+  <li>Zajac, F. E. (1989). <i>Muscle and tendon: Properties, models, scaling, and application to biomechanics and motor control.</i> Critical Reviews in Biomedical Engineering, 17(4), 359–411.</li>
+</ol>
 
 </html>"));
 

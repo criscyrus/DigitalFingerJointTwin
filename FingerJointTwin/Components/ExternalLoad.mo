@@ -1,7 +1,7 @@
 within FingerJointTwin.Components;
 
 model ExternalLoad
-  parameter Real tauLoad = 0.3 "Opposing load torque [Nm]";
+  parameter Real tauLoad = 0.0 "Opposing load torque [Nm]";
 
   FingerJointTwin.Interfaces.RotationalPort joint annotation(
     Placement(transformation(origin={-100,0}, extent={{-10,-10},{10,10}})));

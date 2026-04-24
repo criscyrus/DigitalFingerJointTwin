@@ -46,7 +46,7 @@ The robotic finger reaches contact ~5× faster and generates up to 10× higher g
 | Case 2 | Human finger grasping a **soft** object (kContact = 2 Nm/rad) |
 | Case 3 | Human finger grasping a **hard** object (kContact = 10 Nm/rad) |
 | Case 4 | **Prosthetic** finger — higher inertia, stiffness, and damping |
-| Case 5 | **Robotic** finger — fast actuation, high grip force (~25 N) |
+| Case 5 | **Robotic** finger — fast actuation, peak grip force ~40 N, sustained ~23 N |
 
 ## Physics Model
 
@@ -66,11 +66,24 @@ Contact force is estimated as `F_contact = |τ_contact| / L` where L = 0.05 m (f
 
 ## How to Run
 
-1. Open **OpenModelica** (OMEdit)
-2. Load `FingerJointTwin/package.mo` from the repo root (File → Load Model)
-3. Navigate to `FingerJointTwin.Examples`
-4. Start with `Case1_FreeMotion`, simulate for 10 seconds
-5. Plot `sys.segment.joint.phi` and `sys.F_contact_abs`
+**Prerequisites:** OpenModelica v1.20+ with the Modelica Standard Library (MSL 4.0) — both are included in the standard OMEdit installation.
+
+1. Clone or download this repository
+2. Open **OpenModelica** (OMEdit)
+3. Go to **File → Load Model** and select `FingerJointTwin/package.mo`
+4. Navigate to `FingerJointTwin.Examples` in the library browser
+5. Start with `Case1_FreeMotion`, simulate for 10 seconds
+6. Plot `sys.segment.joint.phi` (joint angle) and `sys.F_contact_abs` (contact force)
+
+## Model Limitations
+
+This is a first-order approximation. The following are intentionally not modelled:
+- Single DOF only — no multi-joint coupling between MCP, PIP, DIP joints
+- Tendons are massless and inextensible (no tendon compliance)
+- No Hill muscle model — activation maps linearly to torque
+- Linear spring/damper — real biological tissue is nonlinear and viscoelastic
+- Planar motion only — no abduction/adduction
+- No skin or fingertip deformation at contact
 
 ## Authors
 
